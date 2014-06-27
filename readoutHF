@@ -1,0 +1,2 @@
+#!/bin/bash
+grep -A10000000 "l9999" $1 | sed ':a;N;$!ba;s/\n/ /g'  | sed 's/ //g' | grep -IRPo  "(?<=HF=)\-\d+\.\d+"
