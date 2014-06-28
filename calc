@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# lite calculator using bc. Do not recognize space, thus, "1 4 + 4" is the same as "14+4"
+
+#echo $1 | bc -l
+
+command=""
+while [ "$1" != "" ] ; do
+    command="$command$1" 
+    #echo $command
+    shift
+done
+
+echo "$command" | bc -l
