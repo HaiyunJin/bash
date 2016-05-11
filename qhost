@@ -1,0 +1,50 @@
+#!/bin/bash
+
+#. /home/hjin/bin/.qhost/qhost_2.2.sh
+#. /home/hjin/bin/.qhost/qhost_2.3.sh
+#. /home/hjin/bin/.qhost/qhost_2.32.sh
+#. /home/hjin/bin/.qhost/qhost_2.33.sh
+#. /home/hjin/bin/.qhost/qhost_2.34.sh
+#. /home/hjin/bin/.qhost/qhost_2.35.sh
+#. /home/hjin/bin/.qhost/qhost_2.36.sh
+#. /home/hjin/bin/.qhost/qhost_2.37.sh
+#. /home/hjin/bin/.qhost/qhost_2.38.sh
+#. /home/hjin/bin/.qhost/qhost_2.39.sh
+#. /home/hjin/bin/.qhost/qhost_2.4.sh $1
+#. /home/hjin/bin/.qhost/qhost_2.5.sh $1
+#. /home/hjin/bin/.qhost/qhost_2.5.1.sh $1
+
+    if [ "$USER" == "cson"  ] ; then 
+        . /home/hjin/bin/.qhost/qhost_2.5.1.sh $1
+    else
+        . /home/hjin/bin/.qhost/qhost_2.5.sh $1
+    fi
+
+echo "New Feature!"
+echo "Use -h to get more information."
+echo ""
+
+#echo "cuinode compute-1-34 is very slow, so"
+#echo "I submitted a dummy job to prevent jobs"
+#echo "going in."
+#echo
+
+
+hour=`date | awk '{print $4}' | cut -d: -f1`
+if [  $hour -ge 23  ] ; then
+    echo "It is late, $LOGNAME. Go get some sleep."
+    echo
+elif [  $hour -le 4  ] ; then
+    echo  "It is early in the morning, $LOGNAME, Can's sleep?"
+    echo
+fi
+
+
+#if [ "$LOGNAME" == "jhong"  ] ; then
+##if [ "$LOGNAME" == "hjin"  ] ; then
+#    echo
+#    echo "洗洗睡吧，核我都用完了。"
+#    echo
+#fi
+
+

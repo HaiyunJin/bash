@@ -1,0 +1,60 @@
+#!/bin/bash
+#
+# Usage:
+# Go to the computing node.
+# If no PID number is given, will ask to choose.
+
+
+joblist=""
+argno=$#
+if [ $argno == 0 ];  then
+    joblist=`qstat -u $LOGNAME | cut -d "." -f1 | grep -e [0-9]`
+
+else
+    while [ "$1" != "" ]; do
+        joblist="$joblist $1"
+        shift;
+    done
+fi
+
+if [ $argno != 1  ]; then 
+    qstat -u $LOGNAME
+    echo 
+    echo "Where do you want to go? Use the index."
+    no=0
+    for x in $joblist; do
+        no=`echo $no+1|bc`
+        echo "$no: $x"
+    done
+
+    if [ $no == 1 ] ; then
+        x=$joblist
+        echo "Since there is 1 job, I assume you want to be there..."
+        echo ""
+    else
+        read choice
+        no=0
+        for x in $joblist; do
+            no=`echo $no+1|bc`
+            if [ $no = $choice ] ; then break; fi
+        done
+    fi
+else
+    x=$joblist
+fi
+
+   echo Searching for Working node for $x: ....
+   a=`qstat -f $x | grep -IRPo  "(?<=exec_host = )[a-z]+\-\d+\-\d+"` 
+   sleep 0.5;
+   tem=`echo "1${a}1"`
+   if [ $tem = 11 ]; then
+      echo "Not running yet, try again later."
+      echo
+   else
+      echo Working nodes: $a
+      echo
+      ssh $a w | head -1
+
+   fi
+
+

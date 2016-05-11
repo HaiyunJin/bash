@@ -1,0 +1,72 @@
+#!/bin/bash
+#
+# This script is to check the loadave of the node one or all my jobs are running.
+# Nodes with multiple jobs running will be shown ONLY ONCE.
+# So expect multiple input with less ouput
+# 
+# Usage:
+#  nodeload [jobid1] [jobid2] ..
+#  nodeload [computenode1] [computenode2] ..
+#  nodeload -cui 
+#
+#
+# Update 2015/8/12 : add -cui -h
+# 
+
+
+
+
+
+
+nodelist=""
+
+if [ $# == 0 ];  then
+    joblist=`qstat -u $LOGNAME | cut -d "." -f1 | grep -e [0-9]`
+else
+    while [ "$1" != "" ]; do
+        if  [ "$1" == "-h" ] ;then
+            cat  << EOF
+ Usage:
+  nodeload [-h] [-cui] [jobid1] [jobid2] .. [computenode1] [computenode2] ..
+  -h   : show help
+  -cui : show all cui node average load
+
+  If called w/o args, show all user ownd jobs loadave.
+
+EOF
+exit 1;
+fi
+
+
+
+        if  [ "$1" == "-cui" ] ;then
+            nodelist="compute-1-30 compute-1-31 compute-1-32 compute-1-33 compute-1-34 compute-1-35"
+            joblist=""
+            break
+        fi
+
+        if [ "`echo $1 | grep compute`" != "" ] ; then
+            nodelist="${nodelist}  $1 "
+        else
+            joblist="${joblist} $1"
+        fi
+        shift;
+    done
+fi
+
+
+
+
+for x in ${joblist}; do
+    nodelist="${nodelist} `qstat -f ${x} | grep -IRPo  "(?<=exec_host = )[a-z]+\-\d+\-\d+" `"
+done
+
+nodelist=`echo $nodelist | sed 's/ /\n/g' | sort  |uniq `
+
+
+for node in ${nodelist} ; do
+    load=`pbsnodes ${node} | grep -oP '(?<=loadave=)\d+\.\d+'`
+    #echo  ${node} : ${load}
+    printf "%-12s: %5.2f\n" ${node} ${load}
+done
+

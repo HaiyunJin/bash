@@ -1,0 +1,13 @@
+#!/bin/bash
+cd /home/hjin/bin
+ echo qhost_2.2.sh ; time . qhost_2.2.sh  >/dev/null  
+ echo qhost_2.3.sh ; time . qhost_2.3.sh  >/dev/null 
+ echo qhost_2.32.sh ; time . qhost_2.32.sh >/dev/null 
+ echo qhost_2.33.sh ; time . qhost_2.33.sh >/dev/null
+ echo qhost_2.34.sh ; time . qhost_2.34.sh >/dev/null
+ echo qhost_2.35.sh ; time . qhost_2.35.sh >/dev/null
+ echo qhost_2.36.sh ; time . qhost_2.36.sh >/dev/null
+ echo qhost_2.37.sh ; time . qhost_2.37.sh >/dev/null
+ echo qhost_2.38.sh ; time . qhost_2.38.sh >/dev/null
+ echo qhost_2.39.sh ; time . qhost_2.39.sh >/dev/null
+

@@ -1,0 +1,23 @@
+#!/bin/bash
+# 
+# This script is use to find all jobs that is running on the node that
+# a job is running.
+# Usage:
+#  nodejobs jobid
+#
+# Creat 20150817 Haiyun
+# 
+
+
+if [ $# == 0 ];  then
+            cat  << EOF
+ Usage:
+  nodejobs jobid
+  -h   : show help
+
+EOF
+exit 1;
+fi
+
+nodeload $1 
+for x in $(pbsnodes $( nodeload $1 | cut -d: -f1) | grep -oP "(?<=/)\d\d\d\d\d\d\d"  | uniq ) ; do qstat | grep $x ;done
