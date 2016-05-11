@@ -1,0 +1,13 @@
+#!/bin/bash
+#echo $1 | bc -l
+
+command=""
+while [ "$1" != "" ] ; do
+    command="$command$1" 
+    #echo $command
+    shift
+done
+
+echo "$command" | bc -l
+
+

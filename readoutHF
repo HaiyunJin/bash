@@ -1,0 +1,5 @@
+#!/bin/bash
+#grep -A10000000 "l9999" $1 | sed ':a;N;$!ba;s/\n/ /g'  | sed 's/ //g' | grep -IRPo  "(?<=HF=)\-\d+\.\d+"
+#grep -A1 "HF=" $1 | sed 'N;s/\n/ /' | sed 's/ //g' | grep -IRPo  "(?<=\\\HF=)\-\d+\.\d+"
+#grep -B100  "Job cpu time" $1  | sed 'N;s/\n/ /' | sed 'N;s/\n/ /' | sed 'N;s/\n/ /' | sed 's/ //g' | grep "HF=" | grep -IRPo  "(?<=\\\HF=)\-\d+\.\d+"
+grep -B100  "Job cpu time" $1  | sed 'N;s/\n/ /' | sed 'N;s/\n/ /' | sed 'N;s/\n/ /' | sed 'N;s/\n/ /'  | sed 'N;s/\n/ /' | sed 'N;s/\n/ /' | sed 'N;s/\n/ /' | sed 'N;s/\n/ /' | sed 's/ //g' |  grep "HF=" | grep -IRPo  "(?<=\\\HF=)\-?\d+\.\d+"

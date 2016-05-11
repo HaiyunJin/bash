@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ $# == 0 ];  then
+    joblist=`qstat -u $LOGNAME | cut -d "." -f1 | grep -e [0-9]`
+else
+    while [ "$1" != "" ]; do
+        joblist="$joblist $1"
+        shift;
+    done
+fi
+
+for x in $joblist; do
+      echo Work pbs for $x:
+  #a=`qstat -f $x | grep  -A1 "PBS_O_WORKDIR\|submit_args" | cut -d "=" -f2 | cut -d "," -f1`
+  a=`qstat -f $x | grep  -A1 "PBS_O_WORKDIR\|submit_args" `
+  b=`echo $a | sed 's/ //' | cut -d, -f1 | cut -d= -f2`
+  c=`echo $a | sed 's/ /,/g' | rev | cut -d= -f2 | rev | cut -d, -f2`
+      echo " "$b/
+      echo "   " $c
+      echo
+done
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ $# = 0 ] ; then
+    echo  need a file
+    exit 1;
+fi
+
+grep -A100000  "l9999" $1 | sed ':a;N;$!ba;s/\n/ /g' | sed 's/ //g' | sed 's/\\/\n/g' | sed 's/,/    /g'
+
+
+
